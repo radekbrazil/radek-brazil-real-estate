@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom'
 
    Strategy tags (for filter): 'STR' | 'House Hack' | 'Assumptions' | 'Cash Flow' | 'Fix & Flip'
    Deal tags (badge on card):  'Off-Market' | 'Price Drop' | 'Coming Soon' | 'Cash Flow' | 'Fix & Flip'
+
+   LEAD GATE: Visitors must submit their info before viewing deals.
+   Submissions go to Netlify Forms (dashboard → Forms → hot-deals-lead).
    ============================================================ */
 
 const HOT_DEALS = [
@@ -41,7 +44,197 @@ const tagColors = {
   'Fix & Flip':    { bg: '#ffedd5', color: '#9a3412' },
 }
 
+/* ── Lead Gate Form ──────────────────────────────────────── */
+function LeadGate({ onUnlock }) {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', intent: '' })
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!form.name || !form.email || !form.phone || !form.intent) {
+      setError('Please fill out all fields.')
+      return
+    }
+    setSubmitting(true)
+    setError('')
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'hot-deals-lead',
+          ...form,
+        }).toString(),
+      })
+      localStorage.setItem('hd_unlocked', '1')
+      onUnlock()
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setSubmitting(false)
+    }
+  }
+
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 14px',
+    borderRadius: 'var(--radius-sm)',
+    border: '1.5px solid var(--color-border)',
+    fontFamily: 'var(--font-body)',
+    fontSize: '15px',
+    color: 'var(--color-text)',
+    background: '#fff',
+    outline: 'none',
+    boxSizing: 'border-box',
+  }
+
+  return (
+    <section className="section" style={{ background: 'var(--color-bg)' }}>
+      <div className="container" style={{ maxWidth: '520px' }}>
+        {/* Teaser card */}
+        <div
+          style={{
+            background: '#ffffff',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-hover)',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Top bar */}
+          <div
+            style={{
+              background: 'var(--color-primary)',
+              padding: '20px 32px',
+              textAlign: 'center',
+            }}
+          >
+            <div style={{ fontSize: '28px', marginBottom: '6px' }}>🔒</div>
+            <h2
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '22px',
+                color: '#ffffff',
+                margin: 0,
+              }}
+            >
+              Unlock Exclusive Deals
+            </h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', marginTop: '6px', marginBottom: 0 }}>
+              Free access — just tell me a little about yourself
+            </p>
+          </div>
+
+          {/* Form body */}
+          <form
+            name="hot-deals-lead"
+            method="POST"
+            data-netlify="true"
+            onSubmit={handleSubmit}
+            style={{ padding: '32px' }}
+          >
+            {/* Hidden field required by Netlify */}
+            <input type="hidden" name="form-name" value="hot-deals-lead" />
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--color-text-secondary)' }}>
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Jane Smith"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--color-text-secondary)' }}>
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="jane@example.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--color-text-secondary)' }}>
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="(555) 000-0000"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--color-text-secondary)' }}>
+                  I'm looking to... *
+                </label>
+                <select
+                  name="intent"
+                  value={form.intent}
+                  onChange={handleChange}
+                  required
+                  style={{ ...inputStyle, cursor: 'pointer' }}
+                >
+                  <option value="">Select one...</option>
+                  <option value="Investment Purchase">Investment Purchase</option>
+                  <option value="Personal Home">Personal Home</option>
+                  <option value="Both">Both — Open to Either</option>
+                </select>
+              </div>
+
+              {error && (
+                <p style={{ color: '#dc2626', fontSize: '14px', margin: 0 }}>{error}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn-primary"
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  fontSize: '15px',
+                  padding: '14px',
+                  opacity: submitting ? 0.7 : 1,
+                  cursor: submitting ? 'wait' : 'pointer',
+                }}
+              >
+                {submitting ? 'Submitting...' : 'Show Me the Deals 🔥'}
+              </button>
+
+              <p style={{ fontSize: '12px', color: 'var(--color-text-muted)', textAlign: 'center', margin: 0 }}>
+                No spam. Your info is only used to match you with relevant deals.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Main Page ───────────────────────────────────────────── */
 export default function HotDeals() {
+  const [unlocked, setUnlocked] = useState(() => !!localStorage.getItem('hd_unlocked'))
   const [activeFilter, setActiveFilter] = useState('All')
 
   const activeDeals = HOT_DEALS.filter((d) => d.active)
@@ -82,64 +275,68 @@ export default function HotDeals() {
         </div>
       </section>
 
-      {/* Deals grid or empty state */}
-      <section className="section" style={{ background: 'var(--color-bg)' }}>
-        <div className="container">
+      {/* Lead gate OR deals grid */}
+      {!unlocked ? (
+        <LeadGate onUnlock={() => setUnlocked(true)} />
+      ) : (
+        <section className="section" style={{ background: 'var(--color-bg)' }}>
+          <div className="container">
 
-          {/* Filter tabs */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '10px',
-              flexWrap: 'wrap',
-              marginBottom: '36px',
-            }}
-          >
-            {FILTER_OPTIONS.map((opt) => {
-              const isActive = activeFilter === opt.key
-              return (
-                <button
-                  key={opt.key}
-                  onClick={() => setActiveFilter(opt.key)}
-                  style={{
-                    padding: '9px 20px',
-                    borderRadius: '999px',
-                    border: isActive
-                      ? '2px solid var(--color-primary)'
-                      : '2px solid var(--color-border)',
-                    background: isActive ? 'var(--color-primary)' : '#ffffff',
-                    color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: '700',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  {opt.label}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Grid or empty */}
-          {filteredDeals.length === 0 ? (
-            <EmptyState filter={activeFilter} />
-          ) : (
+            {/* Filter tabs */}
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-                gap: '28px',
+                display: 'flex',
+                gap: '10px',
+                flexWrap: 'wrap',
+                marginBottom: '36px',
               }}
             >
-              {filteredDeals.map((deal) => (
-                <DealCard key={deal.id} deal={deal} />
-              ))}
+              {FILTER_OPTIONS.map((opt) => {
+                const isActive = activeFilter === opt.key
+                return (
+                  <button
+                    key={opt.key}
+                    onClick={() => setActiveFilter(opt.key)}
+                    style={{
+                      padding: '9px 20px',
+                      borderRadius: '999px',
+                      border: isActive
+                        ? '2px solid var(--color-primary)'
+                        : '2px solid var(--color-border)',
+                      background: isActive ? 'var(--color-primary)' : '#ffffff',
+                      color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: '700',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                )
+              })}
             </div>
-          )}
-        </div>
-      </section>
+
+            {/* Grid or empty */}
+            {filteredDeals.length === 0 ? (
+              <EmptyState filter={activeFilter} />
+            ) : (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                  gap: '28px',
+                }}
+              >
+                {filteredDeals.map((deal) => (
+                  <DealCard key={deal.id} deal={deal} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Why invest with Radek */}
       <section className="section" style={{ background: '#ffffff' }}>
