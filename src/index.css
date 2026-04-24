@@ -1,0 +1,182 @@
+/* ============================================================
+   GLOBAL STYLES & CSS VARIABLES
+   Change colors/fonts here to retheme the entire site.
+   ============================================================ */
+
+:root {
+  /* --- Color Palette: Desert Terracotta --- */
+  --color-primary:       #C4663A;   /* terracotta — buttons, highlights */
+  --color-primary-dark:  #A8522A;   /* hover state for terracotta */
+  --color-primary-light: #E8C4A8;   /* soft terracotta — backgrounds */
+  --color-accent:        #D4A574;   /* warm sand gold — secondary accents */
+
+  --color-bg:            #FAF7F4;   /* warm cream — page background */
+  --color-surface:       #FFFFFF;   /* card / section backgrounds */
+  --color-border:        #E8D5C4;   /* subtle warm borders */
+
+  --color-text-primary:  #1A1A1A;   /* headings and body */
+  --color-text-secondary:#5C4033;   /* subdued text, captions */
+  --color-text-muted:    #9E8070;   /* placeholder / meta text */
+
+  --color-dark:          #2A1A10;   /* dark footer / hero overlay */
+
+  /* --- Typography --- */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lato', 'Helvetica Neue', Arial, sans-serif;
+
+  /* --- Spacing --- */
+  --max-width: 1200px;
+  --section-padding: 80px 24px;
+  --section-padding-mobile: 56px 20px;
+
+  /* --- Border Radius --- */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 4px 24px rgba(42, 26, 16, 0.10);
+  --shadow-hover: 0 8px 40px rgba(42, 26, 16, 0.15);
+
+  /* --- Transitions --- */
+  --transition: 0.25s ease;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: var(--section-padding);
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Outline button */
+.btn-outline {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--color-primary);
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Section headings */
+.section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+  max-width: 580px;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding-mobile);
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+}
