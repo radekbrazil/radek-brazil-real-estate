@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import FeaturedListings from '../components/FeaturedListings'
-import Testimonials from '../components/Testimonials'
 import ContactForm from '../components/ContactForm'
 
 /* ============================================================
@@ -22,9 +21,6 @@ export default function Home() {
 
       {/* 4. How It Works */}
       <HowItWorksSection />
-
-      {/* 5. Testimonials */}
-      <Testimonials />
 
       {/* 6. CTA Banner */}
       <CTABanner />

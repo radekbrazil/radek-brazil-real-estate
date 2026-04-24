@@ -68,9 +68,8 @@ export default function Contact() {
                   icon="📞"
                   label="Phone / Text"
                   value={
-                    <a href="tel:+14802539803" style={{ color: 'var(--color-primary)', fontWeight: '700', fontSize: '17px' }}>
-                      {/* TODO: Replace with real phone */}
-                      (480) 253-9803
+                    <a href="tel:+19259617911" style={{ color: 'var(--color-primary)', fontWeight: '700', fontSize: '17px' }}>
+                      (925) 961-7911
                     </a>
                   }
                   sub="Available Mon–Sat, 8am–7pm AZ time"
@@ -232,7 +231,7 @@ export default function Contact() {
             '@type': 'RealEstateAgent',
             name: 'Radek Brazil', // TODO
             image: 'https://yourdomain.com/headshot.png',
-            telephone: '(480) 253-9803', // TODO
+            telephone: '(925) 961-7911',
             email: 'Radek@TheCopper48.com', // TODO
             url: 'https://yourdomain.com', // TODO
             address: {

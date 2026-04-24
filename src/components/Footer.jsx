@@ -119,8 +119,8 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {/* TODO: Replace with real phone/email */}
               <li>
-                <a href="tel:+14802539803" style={{ color: '#b8a49c', fontSize: '14px' }}>
-                  📞 (480) 253-9803
+                <a href="tel:+19259617911" style={{ color: '#b8a49c', fontSize: '14px' }}>
+                  📞 (925) 961-7911
                 </a>
               </li>
               <li>

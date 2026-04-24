@@ -81,7 +81,7 @@ export default function About() {
                 {[
                   ['🏛️', 'Licensed Arizona REALTOR®'],
                   ['📍', 'Serving Greater Phoenix Metro'],
-                  ['📞', '(480) 253-9803'], // TODO
+                  ['📞', '(925) 961-7911'],
                   ['✉️', 'Radek@TheCopper48.com'], // TODO
                 ].map(([icon, text]) => (
                   <div
