@@ -38,6 +38,7 @@ export default function About() {
       <section className="section" style={{ background: '#ffffff' }}>
         <div className="container">
           <div
+            className="about-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(280px, 380px) 1fr',
@@ -192,7 +193,19 @@ export default function About() {
         {/* Responsive styles */}
         <style>{`
           @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr !important; }
+            .about-grid {
+              grid-template-columns: 1fr !important;
+              gap: 32px !important;
+            }
+            .about-grid > div:first-child {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .about-grid > div:first-child > div:first-child {
+              width: 200px !important;
+              height: 200px !important;
+            }
           }
         `}</style>
       </section>
