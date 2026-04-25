@@ -37,36 +37,13 @@ export default function About() {
       {/* Bio section */}
       <section className="section" style={{ background: '#ffffff' }}>
         <div className="container">
-          <div
-            className="about-grid"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(280px, 380px) 1fr',
-              gap: '64px',
-              alignItems: 'start',
-            }}
-          >
+          <div className="about-grid">
             {/* Headshot */}
             <div>
-              <div
-                style={{
-                  width: '280px',
-                  height: '280px',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  boxShadow: 'var(--shadow-hover)',
-                  margin: '0 auto',
-                }}
-              >
+              <div className="headshot-circle">
                 <img
                   src="/headshot.png"
                   alt="Radek Brazil — Arizona Real Estate Agent"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center 15%',
-                  }}
                 />
               </div>
               {/* Credential badges */}
@@ -192,19 +169,40 @@ export default function About() {
 
         {/* Responsive styles */}
         <style>{`
+          .about-grid {
+            display: grid;
+            grid-template-columns: minmax(280px, 380px) 1fr;
+            gap: 64px;
+            align-items: start;
+          }
+          .headshot-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            margin: 0 auto;
+          }
+          .headshot-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            display: block;
+          }
           @media (max-width: 768px) {
             .about-grid {
-              grid-template-columns: 1fr !important;
-              gap: 32px !important;
+              grid-template-columns: 1fr;
+              gap: 32px;
             }
             .about-grid > div:first-child {
               display: flex;
               flex-direction: column;
               align-items: center;
             }
-            .about-grid > div:first-child > div:first-child {
-              width: 200px !important;
-              height: 200px !important;
+            .headshot-circle {
+              width: 220px;
+              height: 220px;
             }
           }
         `}</style>

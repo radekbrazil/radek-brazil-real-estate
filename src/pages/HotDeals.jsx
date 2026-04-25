@@ -46,7 +46,7 @@ const tagColors = {
 
 /* ── Lead Gate Form ──────────────────────────────────────── */
 function LeadGate({ onUnlock }) {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', intent: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', intent: '', message: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -199,6 +199,24 @@ function LeadGate({ onUnlock }) {
                   <option value="Personal Home">Personal Home</option>
                   <option value="Both">Both — Open to Either</option>
                 </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--color-text-secondary)' }}>
+                  What areas or goals are you focused on? <span style={{ fontWeight: '400', color: 'var(--color-text-muted)' }}>(optional)</span>
+                </label>
+                <textarea
+                  name="message"
+                  placeholder="e.g. Looking for cash-flow properties in Scottsdale under $500K, interested in short-term rentals, relocating from out of state…"
+                  value={form.message}
+                  onChange={handleChange}
+                  rows={3}
+                  style={{
+                    ...inputStyle,
+                    resize: 'vertical',
+                    lineHeight: '1.6',
+                  }}
+                />
               </div>
 
               {error && (
