@@ -119,10 +119,10 @@ function LeadGate({ onUnlock }) {
                 margin: 0,
               }}
             >
-              Unlock Exclusive Deals
+              Get Access to My Curated Deals
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '14px', marginTop: '6px', marginBottom: 0 }}>
-              Free access — just tell me a little about yourself
+              Free — just tell me a little about what you're looking for
             </p>
           </div>
 
@@ -239,8 +239,8 @@ function LeadGate({ onUnlock }) {
                 {submitting ? 'Submitting...' : 'Show Me the Deals 🔥'}
               </button>
 
-              <p style={{ fontSize: '12px', color: 'var(--color-text-muted)', textAlign: 'center', margin: 0 }}>
-                No spam. Your info is only used to match you with relevant deals.
+              <p style={{ fontSize: '12px', color: 'var(--color-text-muted)', textAlign: 'center', margin: 0, lineHeight: '1.6' }}>
+                🔒 I will never spam you or share your contact info with anyone — period. This is just so I can reach out directly with deals that actually match what you're looking for.
               </p>
             </div>
           </form>
@@ -286,9 +286,8 @@ export default function HotDeals() {
           >
             🔥 Hot Deals
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '16px', maxWidth: '540px', margin: '0 auto' }}>
-            Off-market finds, price reductions, and high-potential investment properties
-            across the Phoenix metro — curated from my personal network before they hit the open market.
+          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '16px', maxWidth: '580px', margin: '0 auto' }}>
+            High-potential investment opportunities across the Phoenix metro — personally curated based on a specific investment type I specialize in.
           </p>
         </div>
       </section>
@@ -391,8 +390,8 @@ export default function HotDeals() {
               },
               {
                 icon: '🤝',
-                title: 'Off-Market Access',
-                desc: "Some of the best deals never hit Zillow. My network gives clients access to properties before they're publicly listed.",
+                title: 'Personally Curated Deals',
+                desc: "Every property I feature here is hand-picked based on a specific investment type I specialize in — not just whatever happens to be listed.",
               },
             ].map((item) => (
               <div
